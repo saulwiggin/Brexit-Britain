@@ -26,13 +26,13 @@
         'You stepped in a really deep puddle and got your shoe and socks completly soaked and have to continue',
         'You find a death threat on the street along with a pile of clothes and a wrap sheet',
         'A needle goes through your arm','You notice you are going bald',
-        'You notice you are developing a serious rash near your groin']
+        'You notice you are developing a serious rash near your groin'],
 
         init: function() {
             this.display = new ROT.Display({spacing:1.1});
             document.body.appendChild(this.display.getContainer());
 
-            this._generateRoom();
+            this._generateMap();
 
             var scheduler = new ROT.Scheduler.Simple();
             scheduler.add(this.player, true);
@@ -60,15 +60,20 @@
 
             this.player = this._createBeing(Player, freeCells);
             this.pedro = this._createBeing(Pedro, freeCells);
+            this.tom = this._createBeing(Tom, freeCells);
+            this.mick = this._createBeing(Mick, freeCells);
+            this.clive = this._createBeing(Clive, freeCells);
+            this.andrew = this._createBeing(Andrew, freeCells);
+            this.damsel = this._createBeing(Damsel, freeCells);
         },
 
         _generateRoom: function() {
           var map = new ROT.Map.Arena(12,12);
           var usercallback = function(x,y, value){
-            SHOW(ROT.Util.format("Value %s is generated at [%s,%s]", value, x, y));
+            document.body.appendChild(ROT.Util.format("Value %s is generated at [%s,%s]", value, x, y));
           }
-          map.create(userCallback);
-          var display1 = new ROT.display1.getContainer());
+          map.create(usercallback);
+          var display1 = new ROT.display1.getContainer();
 
           //create a wall around that room
           map.create(function(x,y,wall){
@@ -77,7 +82,7 @@
 
           /*debugging the room*/
           var display2 = new ROT.Display({width:10, height:5,fontsize:8});
-          SHOW(display2.getContainer());
+          document.body.appendChild(display2.getContainer());
           map.create(display2.DEBUG);
         },
 
